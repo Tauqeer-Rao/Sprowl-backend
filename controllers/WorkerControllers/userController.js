@@ -1,0 +1,69 @@
+const WorkerUser = require('../../models/WorkerModels/WorkerUserSchema');
+// const Product = require('../models/productsSchema');
+
+// Controller to create a new user
+exports.createUser = async (req, res) => {
+    try {
+
+        console.log("req arrived in create user", req.body)
+        const newUser = new WorkerUser(req.body);
+        await newUser.save();
+        res.status(201).json(newUser);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Controller to get all users
+exports.getAllUsers = async (req, res) => {
+    try {
+        console.log("req arrived in get all users", req.body)
+        const users = await WorkerUser.find();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Controller to get a single user by ID
+exports.getUserById = async (req, res) => {
+    try {
+        console.log("req arrived in get user by id", req.body)
+        const user = await WorkerUser.findById(req.params.userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Controller to update a user by ID
+exports.updateUserById = async (req, res) => {
+    try {
+        console.log("req arrived in update user", req.body)
+        console.log("req arrived in update user", req.params)
+        const user = await WorkerUser.findByIdAndUpdate(req.params.userId, req.body, { new: true });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Controller to delete a user by ID
+exports.deleteUserById = async (req, res) => {
+    try {
+        console.log("req arrived in delete user", req.body)
+        const user = await WorkerUser.findByIdAndDelete(req.params.userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
