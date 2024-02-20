@@ -5,7 +5,7 @@ const User = require('../../models/CustomerModels/customerUserSchema');
 exports.signup = async (req, res) => {
     try {
         const { email, password, fullName, phoneNumber } = req.body;
-
+        connsole.log(req.body);
         const newUser = new User({
             email,
             password,
