@@ -4,6 +4,9 @@ const authControllerFounder = require('../controllers/auth/authControllerFounder
 const authControllerInvester = require('../controllers/auth/authControllerInvester');
 const authControllerWorker = require('../controllers/auth/authControllerWorker')
 const authControllerCustomer = require('../controllers/auth/authControllerCustomer');
+const authControllerAdmin = require('../controllers/auth/authControllerAdmin');
+
+const authContollerAdmin = require('../controllers/AdminController/adminController')
 
 const userControllerFounder = require('../controllers/FounderControllers/userController')
 const productContollerFounder = require('../controllers/FounderControllers/productController')
@@ -16,6 +19,20 @@ const userControllerWorker = require('../controllers/WorkerControllers/userContr
 const productContollerCustomer = require('../controllers/CustomerControllers/productController')
 const userControllerCustomer = require('../controllers/CustomerControllers/userController')
 
+const eBrandsControllerAdmin = require('../controllers/AdminController/ebrandsController')
+
+
+
+//****************************** */ Routes Admin
+
+router.post('/admin/login', authControllerAdmin.login);
+router.post('/admin/signup', authControllerAdmin.signup);
+
+//****************************** */ Routes EBrands
+router.post('/ebrand', eBrandsControllerAdmin.createEBrand);
+router.get('/ebrands', eBrandsControllerAdmin.getEBrands);
+router.put('/ebrand/:id', eBrandsControllerAdmin.updateEBrand);
+router.delete('/ebrand/:id', eBrandsControllerAdmin.deleteEBrand);
 
 
 //****************************** */ Routes founder
